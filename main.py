@@ -1,4 +1,5 @@
 # Copyright (c) 2021 Sean Morrison
+# See https://arxiv.org/pdf/1507.00106.pdf by Richard Gill for additional reading.
 
 import numpy as np
 from math import pi, sin, cos
@@ -34,8 +35,8 @@ uv = -xy
 P = np.array([1., 0.])
 R = rotate(P, 240 * pi / 180)
  
-# we will vary Q, and use the inequality Pr(P+,Q+) \leq Pr(P+,R+) + Pr(Q+,R+) to ensure that
-# Bell's inequality holds over the test range
+# we will vary the angle of Q, and use the inequality Pr(P+,Q+) \leq Pr(P+,R+) + Pr(Q+,R+) to
+# ensure that Bell's inequality holds over the test range
 angle_settings = np.linspace(0, 2 * pi)
 PQ_data, PR_data, QR_data = [], [], []
 correlation = []
@@ -45,12 +46,12 @@ for phi in angle_settings:
     # rotate the sensor axis Q
     Q = rotate(P, phi)
  
-    # project the data point onto P, Q, R
+    # project the data point onto detectors P, Q, R
     projected_p1 = np.array([project(x, P) for x in xy])
     projected_q1 = np.array([project(x, Q) for x in xy])
     projected_r1 = np.array([project(x, R) for x in xy])
  
-    # project the entangled data point onto P, Q, R
+    # project the entangled data point onto detectors P, Q, R
     projected_p2 = np.array([project(x, P) for x in uv])
     projected_q2 = np.array([project(x, Q) for x in uv])
     projected_r2 = np.array([project(x, R) for x in uv])
